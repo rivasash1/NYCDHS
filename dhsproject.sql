@@ -116,13 +116,14 @@ from dhsproject.dhs_daily_report
 group by 1
 order by 1 asc;
 
+
 -- is the percentage of families with children  in dhs increasing per year?: 
 create view percent_of_families_with_children_in_dhs
 as
-select year(date_of_census) as year, 
-		max(total_individuals_in_shelter) as individuals,
-        max(families_with_children_in_shelter) as families_with_children,
-        (max(total_individuals_in_shelter)/max(families_with_children_in_shelter)*100) as percent_of_families_with_children
+select year(date_of_census) as year,
+	max(families_with_children_in_shelter) as families_with_children,
+    max(total_individuals_in_shelter) as individuals,
+    max(families_with_children_in_shelter)/max(total_individuals_in_shelter) * 100 as percent_of_families_with_children
 from dhsproject.dhs_daily_report
 group by 1
 order by 1 asc;
@@ -131,13 +132,12 @@ order by 1 asc;
 -- is the percentage of adult families in dhs increasing per year?
 create view percent_of_adult_families_in_dhs_per_year
 as
-select year(date_of_census) as year, 
-		max(total_individuals_in_shelter) as individuals,
-        max(adult_families_in_shelter) as adult_families,
-        (max(total_individuals_in_shelter)/max(adult_families_in_shelter)*100) as percent_of_adult_families
+select year(date_of_census) as year,
+	max(adult_families_in_shelter) as adult_families,
+    max(total_individuals_in_shelter) as individuals,
+    max(adult_families_in_shelter)/max(total_individuals_in_shelter) * 100 as percent_of_adult_families
 from dhsproject.dhs_daily_report
 group by 1
 order by 1 asc;
-
 
 
